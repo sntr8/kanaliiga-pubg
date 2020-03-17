@@ -80,7 +80,7 @@ do
 
     printf "\n\n\n and $TEAM goes to game" >> graphic.txt
 
-    echo -ne "$TEAM! And the team goes to game"
+    echo -ne "$TEAM! And the team goes to the game"
     tension
 
     GROUP=$(shuf -i1-2 -n1)
