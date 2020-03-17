@@ -17,6 +17,10 @@ function writeBTeam () {
     printf "$1\n" >> groupBdisplay.txt
 }
 
+cat Kanaliiga-logo.txt > graphic.txt
+
+sleep 5
+
 TEAMCOUNT=$(wc -l teams.txt |awk '{print $1}')
 ATEAMS=0
 BTEAMS=0
@@ -136,6 +140,10 @@ printf "Game LB2 25.3.\n##############\n" |cat - groupBsorted.txt > temp && mv t
 
 printf "Teams have now been divided to Losers Brackets groups. Have fun playing!" > groupDisplay.txt
 
+sleep 7
+
 echo "Lottery is now compelete!"
 echo "Losers brackets groups are:"
 pr -m -t groupAsorted.txt groupBsorted.txt
+
+cat Kanaliiga-logo.txt > graphic.txt
