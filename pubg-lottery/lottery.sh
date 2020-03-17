@@ -6,6 +6,7 @@ function tension {
     echo -ne "."
     sleep 1
     echo -ne "."
+    sleep 1
 }
 
 function writeATeam () {
@@ -21,6 +22,9 @@ ATEAMS=0
 BTEAMS=0
 
 echo "Teams in file: $TEAMCOUNT"
+printf "Let's start the lottery for Kanaliiga PUBG Duo 1/2020 Losers Bracket" > graphic.txt
+
+tension
 
 LIMIT=$(bc -l <<< "scale = 1; $TEAMCOUNT / 2")
 
@@ -51,18 +55,27 @@ do
     if [ "$i" == "0" ];
     then
         echo -ne "The first team is"
+        printf "The first team is" > graphic.txt
     elif [ "$i" -eq "$(( $TEAMCOUNT-1 ))" ];
     then
         echo -ne "And the last team is"
+        printf "And the last team is" > graphic.txt
     else
         echo -ne "The next team is"
+        printf "The next team is" > graphic.txt
     fi
 
     tension
 
     TEAM=$(shuf -n 1 teams.txt.temp)
 
-    echo -ne "team *$TEAM*! And the team goes to game"
+    figlet "$TEAM" > graphic.txt
+
+    sleep 1
+
+    printf "\n\n\n and $TEAM goes to game" >> graphic.txt
+
+    echo -ne "$TEAM! And the team goes to game"
     tension
 
     GROUP=$(shuf -i1-2 -n1)
@@ -72,10 +85,12 @@ do
         if [ "$ATEAMS" == "$LIMIT" ];
         then
             echo -ne "LB2!"
+            figlet "LB2" > graphic.txt
             BTEAMS=$(( BTEAMS+1 ))
             writeBTeam $TEAM
         else
             echo -ne "LB1!"
+            figlet "LB1" > graphic.txt
             ATEAMS=$(( ATEAMS+1 ))
             writeATeam $TEAM
         fi
@@ -83,15 +98,19 @@ do
         if [ "$BTEAMS" == "$LIMIT" ];
         then
             echo -ne "LB1!"
+            figlet "LB1" > graphic.txt
             ATEAMS=$(( ATEAMS+1 ))
             writeATeam $TEAM
         else
             echo -ne "LB2!"
+            figlet "LB2" > graphic.txt
             BTEAMS=$(( BTEAMS+1 ))
             writeBTeam $TEAM
         fi
     fi
     sed -i '' "/^$TEAM\$/d" teams.txt.temp
+
+    tension
 
     printf "\n\n"
 
@@ -113,6 +132,8 @@ rm groupB.txt
 
 printf "Game LB1 24.3.\n##############\n" |cat - groupAsorted.txt > temp && mv temp groupAsorted.txt
 printf "Game LB2 25.3.\n##############\n" |cat - groupBsorted.txt > temp && mv temp groupBsorted.txt
+
+printf "Teams have now been divided to Losers Brackets groups. Have fun playing!"
 
 echo "Lottery is now compelete!"
 echo "Losers brackets groups are:"
