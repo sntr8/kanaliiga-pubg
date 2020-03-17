@@ -133,7 +133,7 @@ rm groupB.txt
 printf "Game LB1 24.3.\n##############\n" |cat - groupAsorted.txt > temp && mv temp groupAsorted.txt
 printf "Game LB2 25.3.\n##############\n" |cat - groupBsorted.txt > temp && mv temp groupBsorted.txt
 
-printf "Teams have now been divided to Losers Brackets groups. Have fun playing!"
+printf "Teams have now been divided to Losers Brackets groups. Have fun playing!" > groupDisplay.txt
 
 echo "Lottery is now compelete!"
 echo "Losers brackets groups are:"
