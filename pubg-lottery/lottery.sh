@@ -22,9 +22,6 @@ ATEAMS=0
 BTEAMS=0
 
 echo "Teams in file: $TEAMCOUNT"
-printf "Let's start the lottery for Kanaliiga PUBG Duo 1/2020 Losers Bracket" > graphic.txt
-
-tension
 
 LIMIT=$(bc -l <<< "scale = 1; $TEAMCOUNT / 2")
 
@@ -42,6 +39,10 @@ i=0
 printf "\n\n\n\n"
 
 echo "Starting group lottery"
+
+printf "Let's start the lottery for Kanaliiga PUBG Duo 1/2020 Losers Bracket" > graphic.txt
+
+tension
 
 printf "\n\n"
 
