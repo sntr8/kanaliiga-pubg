@@ -17,9 +17,15 @@ function writeBTeam () {
     printf "$1\n" >> groupBdisplay.txt
 }
 
+sleep 10
+
 cat Kanaliiga-logo.txt > graphic.txt
 
 sleep 5
+
+echo "" > graphic.txt
+
+sleep 1
 
 TEAMCOUNT=$(wc -l teams.txt |awk '{print $1}')
 ATEAMS=0
@@ -44,14 +50,14 @@ printf "\n\n\n\n"
 
 echo "Starting group lottery"
 
-printf "Let's start the lottery for Kanaliiga PUBG Duo 1/2020 Losers Bracket" > graphic.txt
+printf "\nLet's start the lottery for Kanaliiga PUBG Duo 1/2020 Lower Bracket" > graphic.txt
 
 tension
 
 printf "\n\n"
 
-printf "Game LB1 24.3.\n##############\n" > groupAdisplay.txt
-printf "Game LB2 25.3.\n##############\n" > groupBdisplay.txt
+printf "\nGame LB1 24.3.\n##############\n" > groupAdisplay.txt
+printf "\nGame LB2 25.3.\n##############\n" > groupBdisplay.txt
 
 pr -m -t groupAdisplay.txt groupBdisplay.txt > groupDisplay.txt
 
@@ -60,21 +66,22 @@ do
     if [ "$i" == "0" ];
     then
         echo -ne "The first team is"
-        printf "The first team is" > graphic.txt
+        printf "\nThe first team is" > graphic.txt
     elif [ "$i" -eq "$(( $TEAMCOUNT-1 ))" ];
     then
         echo -ne "And the last team is"
-        printf "And the last team is" > graphic.txt
+        printf "\nAnd the last team is" > graphic.txt
     else
         echo -ne "The next team is"
-        printf "The next team is" > graphic.txt
+        printf "\nThe next team is" > graphic.txt
     fi
 
     tension
 
     TEAM=$(shuf -n 1 teams.txt.temp)
 
-    figlet "$TEAM" > graphic.txt
+    printf "\n" > graphic.txt
+    figlet "$TEAM" >> graphic.txt
 
     sleep 1
 
@@ -90,27 +97,31 @@ do
         if [ "$ATEAMS" == "$LIMIT" ];
         then
             echo -ne "LB2!"
-            figlet "LB2" > graphic.txt
+            printf "\n" > graphic.txt
+            figlet "LB2" >> graphic.txt
             BTEAMS=$(( BTEAMS+1 ))
-            writeBTeam $TEAM
+            writeBTeam "$TEAM"
         else
             echo -ne "LB1!"
-            figlet "LB1" > graphic.txt
+            printf "\n" > graphic.txt
+            figlet "LB1" >> graphic.txt
             ATEAMS=$(( ATEAMS+1 ))
-            writeATeam $TEAM
+            writeATeam "$TEAM"
         fi
     else
         if [ "$BTEAMS" == "$LIMIT" ];
         then
             echo -ne "LB1!"
-            figlet "LB1" > graphic.txt
+            printf "\n" > graphic.txt
+            figlet "LB1" >> graphic.txt
             ATEAMS=$(( ATEAMS+1 ))
-            writeATeam $TEAM
+            writeATeam "$TEAM"
         else
             echo -ne "LB2!"
-            figlet "LB2" > graphic.txt
+            printf "\n" > graphic.txt
+            figlet "LB2" >> graphic.txt
             BTEAMS=$(( BTEAMS+1 ))
-            writeBTeam $TEAM
+            writeBTeam "$TEAM"
         fi
     fi
     sed -i '' "/^$TEAM\$/d" teams.txt.temp
@@ -138,7 +149,7 @@ rm groupB.txt
 printf "Game LB1 24.3.\n##############\n" |cat - groupAsorted.txt > temp && mv temp groupAsorted.txt
 printf "Game LB2 25.3.\n##############\n" |cat - groupBsorted.txt > temp && mv temp groupBsorted.txt
 
-printf "Teams have now been divided to Losers Brackets groups. Have fun playing!" > groupDisplay.txt
+printf "\nTeams have now been divided to Losers Brackets groups. Have fun playing!" > groupDisplay.txt
 
 sleep 7
 
