@@ -17,19 +17,25 @@ function writeBTeam () {
     printf "$1\n" >> groupBdisplay.txt
 }
 
-sleep 10
+APRESEED=groupApreseed.txt
+BPRESEED=groupBpreseed.txt
 
-cat Kanaliiga-logo.txt > graphic.txt
-
-sleep 5
-
-echo "" > graphic.txt
-
-sleep 1
-
-TEAMCOUNT=$(wc -l teams.txt |awk '{print $1}')
 ATEAMS=0
 BTEAMS=0
+
+if [[ -f "$APRESEED" ]];
+then
+    ATEAMS=$(wc -l groupApreseed.txt |awk '{print $1}')
+fi
+
+if [[ -f "$BPRESEED" ]];
+then
+    BTEAMS=$(wc -l groupBpreseed.txt |awk '{print $1}')
+fi
+
+TEAMCOUNT=$(($(wc -l teams.txt |awk '{print $1}')+ATEAMS+BTEAMS))
+
+echo $TEAMCOUNT
 
 echo "Teams in file: $TEAMCOUNT"
 
@@ -46,18 +52,31 @@ cp teams.txt teams.txt.temp
 
 i=0
 
+sleep 10
+
+cat Kanaliiga-logo.txt > graphic.txt
+
+sleep 5
+
+echo "" > graphic.txt
+
+sleep 1
+
 printf "\n\n\n\n"
 
 echo "Starting group lottery"
 
-printf "\nLet's start the lottery for Kanaliiga PUBG Duo 1/2020 Lower Bracket" > graphic.txt
+printf "\nLet's start the lottery for Kanaliiga PUBG Duo 3/2020 Lower Bracket" > graphic.txt
 
 tension
 
 printf "\n\n"
 
-printf "\nGame LB1 24.3.\n##############\n" > groupAdisplay.txt
-printf "\nGame LB2 25.3.\n##############\n" > groupBdisplay.txt
+printf "\nGame LB1 1.12.\n##############\n" > groupAdisplay.txt
+printf "\nGame LB2 3.12.\n##############\n" > groupBdisplay.txt
+
+cat groupApreseed.txt >> groupAdisplay.txt
+cat groupBpreseed.txt >> groupBdisplay.txt
 
 pr -m -t groupAdisplay.txt groupBdisplay.txt > groupDisplay.txt
 
@@ -146,15 +165,15 @@ sort groupB.txt > groupBsorted.txt
 rm groupA.txt
 rm groupB.txt
 
-printf "Game LB1 24.3.\n##############\n" |cat - groupAsorted.txt > temp && mv temp groupAsorted.txt
-printf "Game LB2 25.3.\n##############\n" |cat - groupBsorted.txt > temp && mv temp groupBsorted.txt
+printf "Game LB1 1.12.\n##############\n" |cat - groupAsorted.txt > temp && mv temp groupAsorted.txt
+printf "Game LB2 3.12.\n##############\n" |cat - groupBsorted.txt > temp && mv temp groupBsorted.txt
 
-printf "\nTeams have now been divided to Losers Brackets groups. Have fun playing!" > groupDisplay.txt
+printf "\n\nTeams have now been divided to Lower Brackets groups. Have fun playing!" >> groupDisplay.txt
 
 sleep 7
 
 echo "Lottery is now compelete!"
-echo "Losers brackets groups are:"
+echo "Lower bracket groups are:"
 pr -m -t groupAsorted.txt groupBsorted.txt
 
 cat Kanaliiga-logo.txt > graphic.txt
