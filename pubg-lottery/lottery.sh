@@ -3,10 +3,10 @@
 function tension {
     echo -ne "."
     sleep 1
-    echo -ne "."
-    sleep 1
-    echo -ne "."
-    sleep 1
+#    echo -ne "."
+#    sleep 1
+#    echo -ne "."
+#    sleep 1
 }
 
 function writeATeam () {
@@ -25,12 +25,12 @@ BTEAMS=0
 
 if [[ -f "$APRESEED" ]];
 then
-    ATEAMS=$(wc -l groupApreseed.txt |awk '{print $1}')
+    ATEAMS=$(wc -l $APRESEED |awk '{print $1}')
 fi
 
 if [[ -f "$BPRESEED" ]];
 then
-    BTEAMS=$(wc -l groupBpreseed.txt |awk '{print $1}')
+    BTEAMS=$(wc -l $BPRESEED |awk '{print $1}')
 fi
 
 TEAMCOUNT=$(($(wc -l teams.txt |awk '{print $1}')+ATEAMS+BTEAMS))
